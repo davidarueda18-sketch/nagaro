@@ -10,6 +10,38 @@ Ejemplo: `TransactionDetail --feature transactions`
 
 ## Tu tarea
 
+### 0. Design System Check (obligatorio antes de generar código)
+
+Muestra al desarrollador el inventario actual del design system:
+
+```
+DESIGN SYSTEM — lib/shared/widgets/
+Import único: import 'package:nagaro/shared/widgets/widgets.dart';
+
+ATOMS
+  buttons/   NagaroPrimaryButton, NagaroGhostButton
+  display/   AmountText (con AmountPolarity, AmountSize), StatusBadge (con BadgeVariant), AppLogo
+  feedback/  NagaroLoadingIndicator, EmptyState, ErrorMessage
+  inputs/    NagaroTextField
+  layout/    SectionHeader
+
+MOLECULES
+  cards/     TransactionCard, GoalProgressCard, SummaryCard
+  forms/     LabeledTextField
+```
+
+Luego imprime:
+
+> "Design System Check para `<Page>Page`:
+> ¿Los elementos visuales de esta página pueden construirse con los widgets de arriba?
+>
+> - **SÍ** → úsalos directamente con `import 'package:nagaro/shared/widgets/widgets.dart';`
+> - **NO** → ejecuta `/widget <Nombre> --type atom|molecule` primero para agregar el widget al design system, luego vuelve a `/page`."
+
+Continúa con los pasos siguientes solo después de que el desarrollador confirme que revisó el design system.
+
+---
+
 ### 1. Crear el provider / notifier
 
 Crea `lib/features/<feature>/presentation/providers/<page_snake_case>_provider.dart`:
@@ -73,7 +105,8 @@ class _<Page>Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implementar body
+    // TODO: usar widgets de lib/shared/widgets/widgets.dart antes de crear widgets inline
+    // Si necesitas un widget nuevo: /widget <Nombre> --type atom|molecule
     return const Placeholder();
   }
 }

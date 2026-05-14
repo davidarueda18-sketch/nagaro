@@ -54,11 +54,12 @@ SecureStorageService secureStorage(Ref ref) => SecureStorageServiceImpl();
 
 @riverpod
 GoRouter appRouter(Ref ref) {
-  final secureStorage = ref.watch(secureStorageProvider);
+  // final secureStorage = ref.watch(secureStorageProvider); // TODO(auth): descomentar con el redirect
 
   return GoRouter(
-    initialLocation: RouteNames.splash,
-    redirect: (BuildContext context, GoRouterState state) async {
+    // TODO(auth): restaurar el redirect guard cuando el feature auth esté implementado
+    initialLocation: RouteNames.dashboard,
+    /* redirect: (BuildContext context, GoRouterState state) async {
       final token = await secureStorage.readToken();
       final isAuthenticated = token != null && token.isNotEmpty;
       final isGoingToLogin = state.matchedLocation == RouteNames.login;
@@ -70,7 +71,7 @@ GoRouter appRouter(Ref ref) {
       if (!isAuthenticated && !isGoingToLogin) return RouteNames.login;
       if (isAuthenticated && isGoingToLogin) return RouteNames.dashboard;
       return null;
-    },
+    }, */
     routes: [
       GoRoute(
         path: RouteNames.splash,
